@@ -26,11 +26,16 @@
             animation: {
               'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'flicker': 'flicker 0.15s infinite',
+              'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
             },
             keyframes: {
               flicker: {
                 '0%, 100%': { opacity: '1' },
                 '50%': { opacity: '0.95' },
+              },
+              popIn: {
+                '0%': { transform: 'scale(0.8) rotate(0deg)', opacity: '0' },
+                '100%': { transform: 'scale(1) rotate(var(--tw-rotate))', opacity: '1' }
               }
             }
           }
