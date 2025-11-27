@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { GlitchText } from './GlitchText';
 
@@ -24,21 +23,21 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
       {/* Educational Context */}
       <div className="bg-gray-900/80 border border-gray-700 p-8 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)] backdrop-blur-sm mb-8 text-left">
         <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-          Focus is a skill, just like aiming in a game. This app trains you to block out distractions.
+          Focus is a skill. This simulation tests if you can ignore the "Noise" of the internet.
         </p>
         
         <div className="space-y-4 font-mono text-sm md:text-base text-gray-400">
           <div className="flex items-start gap-3">
             <span className="text-cyber-green font-bold">01 //</span>
-            <p>We treat focus like a <strong className="text-white">Video Game Mission</strong>.</p>
+            <p><strong>Chat with Operator:</strong> Follow the instructions to complete 3 levels.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-cyber-green font-bold">02 //</span>
-            <p>You are the "Runner." Your goal is to complete 3 challenges in 15 minutes.</p>
+            <p><strong>Dodge the Popups:</strong> Fake WhatsApps and Ads will appear. <span className="text-white">Ignore them</span> or click 'X' to close. If you click the content, you lose health.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-cyber-green font-bold">03 //</span>
-            <p>Warning: The system will try to distract you. <strong className="text-white">Don't fall for it.</strong></p>
+            <p><strong>Score High:</strong> Ignore distractions to build your Streak Multiplier.</p>
           </div>
         </div>
       </div>
@@ -49,7 +48,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
         className="group relative px-8 py-4 bg-cyber-green text-black font-display font-bold text-xl tracking-widest hover:bg-white transition-all duration-200 clip-path-polygon"
       >
         <div className="absolute inset-0 border-2 border-transparent group-hover:border-cyber-green transform scale-105 opacity-0 group-hover:opacity-100 transition-all"></div>
-        START GAME
+        START SIMULATION
       </button>
 
       <div className="mt-8 text-xs text-gray-600 font-mono">

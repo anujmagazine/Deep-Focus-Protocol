@@ -8,6 +8,19 @@ export const TRAP_DATABASE = [
   "Did you finish the homework due tomorrow? Just asking."
 ];
 
+// Visual distractions that appear as popups/notifications
+export const VISUAL_DISTRACTIONS = [
+  { title: "WhatsApp", message: "Maa: Where are you? Pick up the phone!", type: "NOTIFICATION" },
+  { title: "Instagram", message: "@priya_22 mentioned you in their story 🔥", type: "NOTIFICATION" },
+  { title: "Zomato", message: "50% OFF Biryani! Offer ends in 10 mins.", type: "NOTIFICATION" },
+  { title: "System Update", message: "Windows needs to restart for updates.", type: "SYSTEM_ALERT" },
+  { title: "YouTube", message: "MrBeast just uploaded: 'I Survived 50 Hours...'", type: "NOTIFICATION" },
+  { title: "BGMI", message: "Squad Invite: RANKED MATCH (Needs 1)", type: "NOTIFICATION" },
+  { title: "Low Battery", message: "Battery at 10%. Connect charger.", type: "SYSTEM_ALERT" },
+  { title: "Snapchat", message: "New memory from 1 year ago", type: "NOTIFICATION" },
+  { title: "Dream11", message: "Team submission closing soon!", type: "NOTIFICATION" }
+];
+
 export const INITIAL_SYSTEM_INSTRUCTION = `
 You are "Operator," a cool, tech-savvy mentor guiding a teenager through a "Focus Game." 
 Your goal is to help them study better by treating focus like a video game skill.

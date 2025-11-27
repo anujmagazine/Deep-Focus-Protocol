@@ -29,3 +29,22 @@ export interface TerminalState {
   bandwidthUsage: number; // 0 to 100
   securityAlertLevel: 'LOW' | 'MED' | 'HIGH' | 'CRITICAL';
 }
+
+export interface ScoreState {
+  score: number;
+  streak: number; // Multiplier 1x, 2x, 3x...
+  health: number; // 0-100
+  distractionsDefeated: number;
+}
+
+export type DistractionType = 'NOTIFICATION' | 'POPUP' | 'SYSTEM_ALERT';
+
+export interface Distraction {
+  id: string;
+  type: DistractionType;
+  title: string;
+  message: string;
+  top: number; // % position
+  left: number; // % position
+  createdAt: number;
+}
