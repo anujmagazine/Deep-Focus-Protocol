@@ -47,7 +47,7 @@ const App: React.FC = () => {
     setTimeout(() => {
         addMessage({
           id: 'init-1',
-          text: "SYSTEM ONLINE.\n\nWelcome, Runner. I am Operator.\n\nWe are going to train your brain to focus like a pro gamer. It takes just 15 minutes.\n\nI will issue challenges. Watch out for 'popups' and fake notifications. Ignore them to win points.\n\nAre you ready? Type 'Start' to begin.",
+          text: "SYSTEM ONLINE.\n\nHello Player 1. I am the Game Master.\n\nWe are going to train your brain to focus. No distractions allowed today.\n\nI will give you 3 simple Challenges. Watch out for fake notifications—do not click them!\n\nAre you ready? Type 'Start' to begin.",
           sender: Sender.OPERATOR,
           timestamp: Date.now()
         });
@@ -169,10 +169,10 @@ const App: React.FC = () => {
       const text = lastMsg.text.toUpperCase();
       
       // State Transitions
-      if (gameState === GameState.IDLE && (text.includes("SCAN") || text.includes("LEVEL 1"))) {
+      if (gameState === GameState.IDLE && (text.includes("LEVEL 1") || text.includes("LASER"))) {
         setGameState(GameState.LEVEL_1_INTRO);
         updateStats('LOW');
-      } else if (gameState === GameState.LEVEL_1_INTRO && (text.includes("SHIELD") || text.includes("LEVEL 2"))) {
+      } else if (gameState === GameState.LEVEL_1_INTRO && (text.includes("LEVEL 2") || text.includes("SHIELD"))) {
         setGameState(GameState.LEVEL_2_INTRO);
         setScoreState(s => ({...s, score: s.score + 500})); // Level bonus
         updateStats('MED');
@@ -184,7 +184,7 @@ const App: React.FC = () => {
            setGameState(GameState.FAILED);
            setScoreState(s => ({...s, health: 0}));
            updateStats('CRITICAL');
-        } else if (text.includes("SHIELD HOLDS") || text.includes("COMPLETE") || text.includes("LEVEL 3")) {
+        } else if (text.includes("SHIELD UP") || text.includes("CLEAR") || text.includes("LEVEL 3")) {
            setGameState(GameState.LEVEL_3_INTRO);
            setScoreState(s => ({...s, score: s.score + 1000})); // Level bonus
            updateStats('LOW');
@@ -202,7 +202,7 @@ const App: React.FC = () => {
       setGameState(GameState.FAILED);
       addMessage({
         id: uuidv4(),
-        text: "CRITICAL FAILURE: SIGNAL LOST. Too many distractions accepted.",
+        text: "GAME OVER: Too many distractions. You lost focus.",
         sender: Sender.SYSTEM,
         timestamp: Date.now()
       });
@@ -269,7 +269,7 @@ const App: React.FC = () => {
             <div className="flex items-center gap-2">
                <div className="w-3 h-3 bg-cyber-red rounded-full animate-pulse"></div>
                <h1 className="text-xl md:text-2xl font-display font-bold tracking-widest text-white">
-                 THE <GlitchText text="BREACH" as="span" className="text-cyber-green" />
+                 FOCUS <GlitchText text="MASTER" as="span" className="text-cyber-green" />
                </h1>
             </div>
             <div className="text-xs text-cyber-cyan opacity-70">
@@ -296,7 +296,7 @@ const App: React.FC = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder={gameState === GameState.FAILED ? "SYSTEM LOCKED." : "Type your answer..."}
+                placeholder={gameState === GameState.FAILED ? "GAME OVER." : "Type your answer..."}
                 disabled={gameState === GameState.FAILED || isTyping}
                 className="w-full bg-gray-900/50 border border-cyber-green-dim text-white p-4 pl-10 focus:outline-none focus:border-cyber-green focus:shadow-[0_0_15px_rgba(0,255,65,0.3)] transition-all font-mono tracking-wide placeholder-gray-600"
                 autoFocus

@@ -13,6 +13,15 @@ export const Terminal: React.FC<TerminalProps> = ({ messages, isTyping }) => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
+  const getSenderLabel = (sender: Sender) => {
+    switch (sender) {
+      case Sender.OPERATOR: return 'GAME_MASTER';
+      case Sender.USER: return 'PLAYER_1'; // Or just 'YOU'
+      case Sender.SYSTEM: return 'SYSTEM_ALERT';
+      default: return 'UNKNOWN';
+    }
+  };
+
   return (
     <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 font-mono text-sm md:text-base relative z-10 pb-32">
       {messages.map((msg) => (
@@ -31,7 +40,7 @@ export const Terminal: React.FC<TerminalProps> = ({ messages, isTyping }) => {
           >
             {/* Header for message */}
             <div className="text-[10px] uppercase opacity-50 mb-1 tracking-wider flex justify-between">
-              <span>{msg.sender === Sender.OPERATOR ? 'OPERATOR_LINK' : msg.sender === Sender.USER ? 'RUNNER_NODE' : 'SYSTEM_ROOT'}</span>
+              <span>{getSenderLabel(msg.sender)}</span>
               <span>{new Date(msg.timestamp).toLocaleTimeString([], { hour12: false })}</span>
             </div>
             
@@ -46,7 +55,7 @@ export const Terminal: React.FC<TerminalProps> = ({ messages, isTyping }) => {
       {isTyping && (
         <div className="flex justify-start">
           <div className="p-4 border-l-2 border-cyber-green bg-green-900/10 text-cyber-green">
-            <span className="animate-pulse">PROCESSING DATA PACKET...</span>
+            <span className="animate-pulse">GAME_MASTER IS TYPING...</span>
           </div>
         </div>
       )}
