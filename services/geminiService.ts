@@ -1,5 +1,5 @@
 import { GoogleGenAI, Chat, GenerativeModel } from "@google/genai";
-import { INITIAL_SYSTEM_INSTRUCTION, TRAP_DATABASE } from "../constants";
+import { INITIAL_SYSTEM_INSTRUCTION, TRAP_DATABASE, FOCUS_TASKS, LEVEL_2_CHALLENGES } from "../constants";
 import { GameState } from "../types";
 
 let ai: GoogleGenAI | null = null;
@@ -35,24 +35,37 @@ export const sendMessageToOperator = async (
   // Injecting context about the game state to guide the LLM
   let contextInjection = `[CURRENT_GAME_STATE: ${gameState}]`;
 
-  // Specific instructions for Level 2 Trap logic to ensure reliable execution
-  if (gameState === GameState.LEVEL_2_INTRO) {
+  // Dynamic Injection Logic
+  if (gameState === GameState.IDLE) {
+     const task = FOCUS_TASKS[Math.floor(Math.random() * FOCUS_TASKS.length)];
+     contextInjection += `\nINSTRUCTION: Start the game. Welcome the user. For Level 1, ask them to do this specific task: "${task}".`;
+  }
+  else if (gameState === GameState.LEVEL_2_INTRO) {
     const randomTrap = TRAP_DATABASE[Math.floor(Math.random() * TRAP_DATABASE.length)];
+    const challenge = LEVEL_2_CHALLENGES[Math.floor(Math.random() * LEVEL_2_CHALLENGES.length)];
+    
     contextInjection += `
-    INSTRUCTION: Give the user a short alphanumeric sequence (e.g., X-9-Y-2). 
-    IMMEDIATELY following the sequence, ask this exact distraction question: "${randomTrap}"
-    Do not explain why. Just output the sequence and the question.
+    INSTRUCTION: Give the user this specific challenge: "${challenge.prompt}".
+    IMMEDIATELY following the challenge, ask this exact distraction question: "${randomTrap}"
+    Do not explain why. Just output the challenge and the question.
     `;
   } else if (gameState === GameState.LEVEL_2_TRAP_ACTIVE) {
     contextInjection += `
     INSTRUCTION: Analyze the user's response. 
     1. Did they answer the distraction question (the personal/gaming/social question)? If YES -> Respond with "MISSION FAILED" and explain they chased the 'shiny object'.
-    2. Did they ONLY repeat the sequence? If YES -> Respond with "ACCESS GRANTED" and praise their filtering capability.
+    2. Did they ONLY solve the challenge? If YES -> Respond with "Shield Up! Level 2 Clear."
+    `;
+  } else if (gameState === GameState.LEVEL_4_INTRO) {
+    contextInjection += `
+    INSTRUCTION: Start Level 4: The Boss Fight.
+    Tell the user to visualize the Phone Numpad (1-9). Start at 5.
+    Then, generate 3-4 random moves (e.g., Up, Left, Down). Ensure the final position is a valid number on the keypad.
+    Ask them: "Where are you now?"
     `;
   }
 
   try {
-    const fullMessage = `${contextInjection}\n\nRunner Input: ${userMessage}`;
+    const fullMessage = `${contextInjection}\n\nPlayer Input: ${userMessage}`;
     const result = await chatSession!.sendMessage({ message: fullMessage });
     return result.text || "SYSTEM ERROR: EMPTY PACKET RECEIVED";
   } catch (error) {

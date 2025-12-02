@@ -47,7 +47,7 @@ const App: React.FC = () => {
     setTimeout(() => {
         addMessage({
           id: 'init-1',
-          text: "SYSTEM ONLINE.\n\nHello Player 1. I am the Game Master.\n\nWe are going to train your brain to focus. No distractions allowed today.\n\nI will give you 3 simple Challenges. Watch out for fake notifications—do not click them!\n\nAre you ready? Type 'Start' to begin.",
+          text: "SYSTEM ONLINE.\n\nHello Player 1. I am the Game Master.\n\nWe are going to train your brain to focus. No distractions allowed today.\n\nI will give you 4 Challenges. Watch out for fake notifications—do not click them!\n\nAre you ready? Type 'Start' to begin.",
           sender: Sender.OPERATOR,
           timestamp: Date.now()
         });
@@ -66,6 +66,8 @@ const App: React.FC = () => {
       spawnRate = 3000; // Chaos mode in Level 2
     } else if (gameState === GameState.LEVEL_3_ACTION) {
       spawnRate = 5000;
+    } else if (gameState === GameState.LEVEL_4_ACTION) {
+      spawnRate = 2500; // Super hard in Boss Level
     }
 
     const interval = setInterval(() => {
@@ -172,14 +174,17 @@ const App: React.FC = () => {
       if (gameState === GameState.IDLE && (text.includes("LEVEL 1") || text.includes("LASER"))) {
         setGameState(GameState.LEVEL_1_INTRO);
         updateStats('LOW');
-      } else if (gameState === GameState.LEVEL_1_INTRO && (text.includes("LEVEL 2") || text.includes("SHIELD"))) {
+      } 
+      else if (gameState === GameState.LEVEL_1_INTRO && (text.includes("LEVEL 2") || text.includes("SHIELD"))) {
         setGameState(GameState.LEVEL_2_INTRO);
         setScoreState(s => ({...s, score: s.score + 500})); // Level bonus
         updateStats('MED');
-      } else if (gameState === GameState.LEVEL_2_INTRO && (text.includes("?") || text.includes("QUEST"))) {
+      } 
+      else if (gameState === GameState.LEVEL_2_INTRO && (text.includes("?") || text.includes("QUEST"))) {
         setGameState(GameState.LEVEL_2_TRAP_ACTIVE);
         updateStats('HIGH');
-      } else if (gameState === GameState.LEVEL_2_TRAP_ACTIVE) {
+      } 
+      else if (gameState === GameState.LEVEL_2_TRAP_ACTIVE) {
         if (text.includes("GAME OVER") || text.includes("FAILED")) {
            setGameState(GameState.FAILED);
            setScoreState(s => ({...s, health: 0}));
@@ -189,9 +194,28 @@ const App: React.FC = () => {
            setScoreState(s => ({...s, score: s.score + 1000})); // Level bonus
            updateStats('LOW');
         }
-      } else if (text.includes("MISSION COMPLETE") || text.includes("ZONE")) {
+      } 
+      else if (gameState === GameState.LEVEL_3_INTRO && (text.includes("LEVEL 4") || text.includes("BOSS FIGHT"))) {
+           setGameState(GameState.LEVEL_4_INTRO);
+           setScoreState(s => ({...s, score: s.score + 1500})); // Level bonus
+           updateStats('HIGH');
+      }
+      else if (gameState === GameState.LEVEL_4_INTRO && (text.includes("WHERE") || text.includes("?"))) {
+           setGameState(GameState.LEVEL_4_ACTION);
+           updateStats('CRITICAL'); // Intense
+      }
+      else if (gameState === GameState.LEVEL_4_ACTION || gameState === GameState.LEVEL_3_ACTION) {
+         if (text.includes("GAME OVER") || text.includes("FAILED")) {
+           setGameState(GameState.FAILED);
+           setScoreState(s => ({...s, health: 0}));
+         } else if (text.includes("MISSION COMPLETE") || text.includes("LEGEND")) {
            setGameState(GameState.COMPLETED);
-           setScoreState(s => ({...s, score: s.score + 2000})); // Completion bonus
+           setScoreState(s => ({...s, score: s.score + 3000})); // Completion bonus
+         } else if (text.includes("LEVEL 4") && gameState === GameState.LEVEL_3_ACTION) {
+           // Fallback catch if it skipped a beat
+           setGameState(GameState.LEVEL_4_INTRO);
+           updateStats('HIGH');
+         }
       }
     }
   }, [messages, gameState]);

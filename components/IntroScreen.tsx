@@ -29,7 +29,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
         <div className="space-y-4 font-mono text-sm md:text-base text-gray-400">
           <div className="flex items-start gap-3">
             <span className="text-cyber-green font-bold">01 //</span>
-            <p><strong>The Coach:</strong> You will chat with the Game Master. Follow the instructions to clear 3 Levels.</p>
+            <p><strong>The Coach:</strong> You will chat with the Game Master. Follow the instructions to clear 4 Levels.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-cyber-green font-bold">02 //</span>
@@ -37,7 +37,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
           </div>
           <div className="flex items-start gap-3">
             <span className="text-cyber-green font-bold">03 //</span>
-            <p><strong>The Score:</strong> Stay focused to build your Streak. Prove you are a Legend.</p>
+            <p><strong>The Boss Fight:</strong> The final level will test your memory. Be ready.</p>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
       </button>
 
       <div className="mt-8 text-xs text-gray-600 font-mono">
-        DURATION: 15 MINS
+        DURATION: 15 MINS • ADAPTIVE DIFFICULTY
       </div>
     </div>
   );

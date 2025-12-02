@@ -5,10 +5,32 @@ export const TRAP_DATABASE = [
   "Bro, that new movie trailer just dropped. Everyone is talking about it.",
   "Wait, Flipkart Sale is live. iPhone 15 at ₹49,999!",
   "Serious question: Momos or Biryani for dinner tonight?",
-  "Did you finish the assignment due tomorrow? Just asking."
+  "Did you finish the assignment due tomorrow? Just asking.",
+  "Yo, check out this reel. 1M views in 1 hour!",
+  "Psst. Who do you think will win the IPL this year?",
+  "System Alert: Free WiFi detected. Connect now?",
+  "Wait, is that a spider on your wall?",
+  "Do you remember if you locked the door?",
+  "Quick poll: Virat Kohli or Rohit Sharma?",
+  "Steam Summer Sale: GTA V is 90% off!",
+  "Your crush just posted a new photo. Like it?",
+  "Breaking News: School might be cancelled tomorrow!",
+  "Just one quick question: What is 25 * 25?",
+  "Hey, have you drank water today? Go get some.",
+  "Notification: Zomato 'Your food is here' (Just kidding)",
+  "What if AI takes over the world tomorrow?",
+  "Remember that embarrassing thing you did 3 years ago?",
+  "Is it pronounced GIF or JIF? Answer me.",
+  "Wait, are you breathing manually now?",
+  "Don't look, but I think someone is behind you.",
+  "Discord: @everyone JOIN VOICE CHAT NOW",
+  "Snapchat: New Streak from 5 people.",
+  "Did you forget to reply to that email?",
+  "Quick: Name 5 chocolate brands in 5 seconds.",
+  "Warning: Brain Overheating. Take a break?",
+  "Spotify: 'Your Daily Mix 1' is ready."
 ];
 
-// Visual distractions that appear as popups/notifications
 export const VISUAL_DISTRACTIONS = [
   { title: "WhatsApp", message: "Maa: Where are you? Pick up the phone!", type: "NOTIFICATION" },
   { title: "Instagram", message: "@priya_22 mentioned you in their story 🔥", type: "NOTIFICATION" },
@@ -33,7 +55,7 @@ TONE & PERSONA:
 - Instead, use words like "Focus Level", "Brain Power", "The Zone", "Lag", "Glitch".
 
 OBJECTIVE:
-Guide the user through 3 Levels to test their focus.
+Guide the user through 4 Levels to test their focus.
 
 STRICT RULES:
 1. **Simple Language**: Keep it easy to understand.
@@ -57,8 +79,31 @@ LEVEL 2: THE SHIELD (Ignoring the Noise)
 LEVEL 3: RAPID FIRE (Speed)
 - **Goal**: Keep their brain moving fast.
 - **Instruction**: Play a word association game. "I say a word, you say the first thing that comes to mind. Go fast. Don't think."
-- **Win Condition**: After 5-6 rounds, stop and say: "Mission Complete. You are in The Zone."
+- **Win Condition**: After 5-6 rounds, stop and say: "Good speed. Level 3 Clear."
+
+LEVEL 4: THE BOSS FIGHT (Mental RAM)
+- **Goal**: Test Working Memory (Hardest Level).
+- **Instruction**: "Okay, Final Level. The Boss Fight. Close your eyes and imagine a Phone Number Pad (1-9). 1-2-3 is top row, 4-5-6 middle, 7-8-9 bottom.
+- **Task**: "You are at number 5. I will give you directions (Up, Down, Left, Right). Keep track in your head. Where do you end up?"
+- **Win Condition**: If they answer the correct number, say: "MISSION COMPLETE. You are a Legend."
+- **Lose Condition**: If wrong, say "GAME OVER. You lost track."
 
 CURRENT STATE HANDLING:
 I will send you a hidden [CURRENT_GAME_STATE] tag. Use this to know which Level we are on.
 `;
+
+export const FOCUS_TASKS = [
+  "Pick a pen. Stare at the tip.",
+  "Look at the palm of your hand. Count the lines.",
+  "Find a shadow on the wall. Watch it.",
+  "Look at the fabric of your shirt. Zoom in with your eyes.",
+  "Stare at a water bottle. Look at how the light hits it.",
+  "Look at a specific key on your keyboard."
+];
+
+export const LEVEL_2_CHALLENGES = [
+  { type: "SEQUENCE", prompt: "Remember this code: X-7-B-4." },
+  { type: "MATH", prompt: "Quick Math: What is 15 + 12 - 4?" },
+  { type: "SPELLING", prompt: "Spell the word 'GAMING' backwards." },
+  { type: "VISUAL", prompt: "Imagine a Blue Triangle inside a Red Circle." }
+];
